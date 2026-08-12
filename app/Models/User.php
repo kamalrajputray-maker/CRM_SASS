@@ -19,9 +19,17 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'company_id',
+        'public_id',
         'name',
+        'first_name',
+        'last_name',
         'email',
+        'phone',
         'password',
+        'profile_photo',
+        'status',
+        'last_login_at',
     ];
 
     /**
@@ -46,4 +54,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function company()
+    {
+      return $this->belongsTo(Company::class);
+    }
+    public function assignedCustomers()
+    {
+        return $this->hasMany(Customer::class, 'assigned_user_id');
+    }
+
 }
